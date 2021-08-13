@@ -25,15 +25,7 @@ body {
     padding: 1em;
     border: inherit;
     border-radius: 2px;
-
-}
-
-.tasks {
-    display: flex;
-    flex-direction: column;
-    grid-column: 1 / -1;
-    grid-row: 4;
-    width: 100%;
+    
 }
 
 .report {
@@ -47,12 +39,23 @@ body {
     justify-content: space-around;
 }
 
-.checkboxs {
-    border: solid rgb(202, 201, 201) 1px;
-    padding: .2em;
+#tasks {
+    display: flex;
+    flex-direction: column;
+    grid-column: 1 / -1;
+    grid-row-start: 4;
+    width: 100%;
+    list-style-type: none;
 }
 
-.done-lbl {
+
+.done{
     text-decoration: line-through;
     color: gray;
+}
+
+ul li {
+    padding: 5px;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
 }
