@@ -12,23 +12,31 @@
 
 <body>
     <div class="container">
+
         <h1 class="title">
             ToDoList
         </h1>
-        <input type="text" class="input-btn" placeholder="What needs to be done?">
+
+        <form>
+            <input type="text" class="input-btn" placeholder="What needs to be done?">
+        </form>
+
         <ul id="tasks">
             <li class="todo task">
                 <label><input type="checkbox" /> Sweep the floor</label>
             </li>
+            
             <li class="done task">
                 <label><input type="checkbox" checked /> Dust the vases</label>
             </li>
         </ul>
+
         <div class="report">
             <p id="todo-count">Todo: </p>
             <p id="completed-count">Done: </p>
             <p id="total-count">Total: </p>
         </div>
+
     </div>
     <script src="scripts/main.js" type="text/javascript"></script>
 </body>
