@@ -48,12 +48,12 @@ form {
     list-style-type: none;
 }
 
-.done{
+.done {
     text-decoration: line-through;
     color: gray;
 }
 
-.task{
+.task {
     padding: 5px;
     border: 1px solid #e6e6e6;
     border-radius: 3px;
