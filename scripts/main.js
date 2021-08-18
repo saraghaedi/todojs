@@ -14,13 +14,13 @@ function render(tasks) {
     for (let i = 0; i < tasks.length; i++) {
         if (tasks[i].cls == "done") {
             listItems += `
-            <li class="${tasks[i].cls} task">
+            <li class="done task">
             <label><input type="checkbox" checked/> ${tasks[i].text}</label>
             </li>
         `;
         } else {
             listItems += `
-            <li class="${tasks[i].cls} task">
+            <li class="todo task">
             <label><input type="checkbox" /> ${tasks[i].text}</label>
             </li>
         `;
@@ -108,19 +108,21 @@ document
 
         const inputField = document.querySelector(".input-btn");
         const newTodoTitle = inputField.value;
+        if (newTodoTitle != "") {
+            //save new task to local storage
+            let taskObj = {
+                text: newTodoTitle,
+                cls: 'todo'
+            };
+            myTasks.push(taskObj);
+            localStorage.setItem("myTasks", JSON.stringify(myTasks));
 
-        //save new task to local storage
-        let taskObj = {
-            text: newTodoTitle,
-            cls: 'todo'
-        };
-        myTasks.push(taskObj);
-        localStorage.setItem("myTasks", JSON.stringify(myTasks));
+            createTodo(newTodoTitle);
+            inputField.value = null;
 
-        createTodo(newTodoTitle);
-        inputField.value = null;
+            updateCounters();
+        }
 
-        updateCounters();
     });
 
 function cleanUpDoneTodos() {
