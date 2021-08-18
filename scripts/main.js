@@ -14,13 +14,13 @@ function render(tasks) {
     for (let i = 0; i < tasks.length; i++) {
         if (tasks[i].cls == "done") {
             listItems += `
-            <li class="done task">
+            <li class="done task" style="background-color: ${tasks[i].color}">
             <label><input type="checkbox" checked/> ${tasks[i].text}</label>
             </li>
         `;
         } else {
             listItems += `
-            <li class="todo task">
+            <li class="todo task" style="background-color: ${tasks[i].color}">
             <label><input type="checkbox" /> ${tasks[i].text}</label>
             </li>
         `;
@@ -95,6 +95,9 @@ function createTodo(title) {
 
     newListItem = document.createElement('li');
     newListItem.appendChild(newLabel);
+
+    setColor(newListItem);
+
     const ul = document.getElementById("tasks");
     newListItem.className = 'task todo';
     ul.appendChild(newListItem);
@@ -108,11 +111,13 @@ document
 
         const inputField = document.querySelector(".input-btn");
         const newTodoTitle = inputField.value;
+        const color = document.getElementById('color-picker').value;
         if (newTodoTitle != "") {
             //save new task to local storage
             let taskObj = {
                 text: newTodoTitle,
-                cls: 'todo'
+                cls: 'todo',
+                color: color
             };
             myTasks.push(taskObj);
             localStorage.setItem("myTasks", JSON.stringify(myTasks));
@@ -124,6 +129,12 @@ document
         }
 
     });
+
+function setColor(element) {
+    const colorElement = document.getElementById('color-picker');
+    element.style.backgroundColor = colorElement.value;
+
+}
 
 function cleanUpDoneTodos() {
     const doneItems = document.querySelectorAll('.done');

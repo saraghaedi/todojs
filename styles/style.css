@@ -18,9 +18,12 @@ body {
 }
 
 form {
+    display: flex;
     padding: 0 0 20px;
     grid-column: 1 / -1;
     grid-row-start: 3;
+    width: 93%;
+
 }
 
 .input-btn {
@@ -66,4 +69,10 @@ form {
     color: white;
     text-decoration: none;
     margin: auto 0;
+}
+
+#color-picker {
+    border: inherit;
+    padding: 6px;
+    margin: .5em;
 }
