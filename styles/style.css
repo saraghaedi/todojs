@@ -23,14 +23,16 @@ form {
     grid-column: 1 / -1;
     grid-row-start: 3;
     width: 93%;
+    justify-content: space-between;
 
 }
 
 .input-btn {
-    width: 500px;
+    width: 350px;
     border-radius: 3px;
     border: 1px solid #e6e6e6;
     padding: 10px;
+    margin-right: 5px;
 }
 
 .report {
@@ -57,6 +59,8 @@ form {
 }
 
 .task {
+    display: flex;
+    justify-content: space-between;
     padding: 5px;
     border: 1px solid #e6e6e6;
     border-radius: 3px;
@@ -65,14 +69,20 @@ form {
     margin: .25em;
 }
 
+#color-picker {
+    border: 1px solid #e6e6e6;
+    border-radius: 30%;
+    padding: 6px;
+    margin: .5em;
+}
+
+#date-picker {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+}
+
 #clean-btn {
     color: white;
     text-decoration: none;
     margin: auto 0;
-}
-
-#color-picker {
-    border: inherit;
-    padding: 6px;
-    margin: .5em;
 }

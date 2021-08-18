@@ -16,12 +16,14 @@ function render(tasks) {
             listItems += `
             <li class="done task" style="background-color: ${tasks[i].color}">
             <label><input type="checkbox" checked/> ${tasks[i].text}</label>
+            <label> DD: ${tasks[i].date}</label>
             </li>
         `;
         } else {
             listItems += `
             <li class="todo task" style="background-color: ${tasks[i].color}">
             <label><input type="checkbox" /> ${tasks[i].text}</label>
+            <label> DD: ${tasks[i].date}</label>
             </li>
         `;
         }
@@ -93,15 +95,32 @@ function createTodo(title) {
     const newTitle = document.createTextNode(" " + title);
     newLabel.appendChild(newTitle);
 
+    const dateLabel = document.createElement('label');
+    setDate(dateLabel);
+
     newListItem = document.createElement('li');
     newListItem.appendChild(newLabel);
+    newListItem.appendChild(dateLabel);
 
     setColor(newListItem);
 
     const ul = document.getElementById("tasks");
     newListItem.className = 'task todo';
     ul.appendChild(newListItem);
+    
+}
 
+function setColor (element) {
+    const colorElement = document.getElementById('color-picker');
+    element.style.backgroundColor = colorElement.value;
+
+}
+
+function setDate (element) {
+    const dateVal = document.getElementById('date-picker').value;
+    const date = document.createTextNode(` DD: ${dateVal}`);
+    element.appendChild(date);
+    
 }
 
 document
@@ -112,12 +131,14 @@ document
         const inputField = document.querySelector(".input-btn");
         const newTodoTitle = inputField.value;
         const color = document.getElementById('color-picker').value;
+        const date = document.getElementById('date-picker').value;
         if (newTodoTitle != "") {
             //save new task to local storage
             let taskObj = {
-                text: newTodoTitle,
-                cls: 'todo',
-                color: color
+                text : newTodoTitle,
+                cls : 'todo',
+                color : color,
+                date : date
             };
             myTasks.push(taskObj);
             localStorage.setItem("myTasks", JSON.stringify(myTasks));
@@ -130,11 +151,6 @@ document
 
     });
 
-function setColor(element) {
-    const colorElement = document.getElementById('color-picker');
-    element.style.backgroundColor = colorElement.value;
-
-}
 
 function cleanUpDoneTodos() {
     const doneItems = document.querySelectorAll('.done');
