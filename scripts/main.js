@@ -1,5 +1,35 @@
 /*jshint esversion: 6 */
 
+let myTasks = [];
+const tasksFromLocalStorage = JSON.parse(localStorage.getItem("myTasks"));
+const tasksEl = document.getElementById('tasks');
+
+if (tasksFromLocalStorage) {
+    myTasks = tasksFromLocalStorage;
+    render(myTasks);
+}
+
+function render(tasks) {
+    let listItems = "";
+    for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i].cls == "done") {
+            listItems += `
+            <li class="${tasks[i].cls} task">
+            <label><input type="checkbox" checked/> ${tasks[i].text}</label>
+            </li>
+        `;
+        } else {
+            listItems += `
+            <li class="${tasks[i].cls} task">
+            <label><input type="checkbox" /> ${tasks[i].text}</label>
+            </li>
+        `;
+        }
+    }
+    tasksEl.innerHTML = listItems;
+}
+
+
 function updateCounters() {
 
     const total_count = document.getElementById('total-count');
@@ -16,14 +46,31 @@ function updateCounters() {
 
 updateCounters();
 
+
 function toggleDone(event) {
 
     const checkbox = event.currentTarget;
+    const checkboxValue = checkbox.parentElement.textContent;
+
 
     if (checkbox.checked) {
         checkbox.parentElement.parentElement.className = "done task";
+        for (let i = 0; i < myTasks.length; i++) {
+            if (myTasks[i].text == checkboxValue.trim()) {
+                myTasks[i].cls = "done";
+                localStorage.setItem("myTasks", JSON.stringify(myTasks));
+                break;
+            }
+        }
     } else {
         checkbox.parentElement.parentElement.className = "todo task";
+        for (let i = 0; i < myTasks.length; i++) {
+            if (myTasks[i].text == checkboxValue.trim()) {
+                myTasks[i].cls = "todo";
+                localStorage.setItem("myTasks", JSON.stringify(myTasks));
+                break;
+            }
+        }
     }
     updateCounters();
 }
@@ -51,6 +98,7 @@ function createTodo(title) {
     const ul = document.getElementById("tasks");
     newListItem.className = 'task todo';
     ul.appendChild(newListItem);
+
 }
 
 document
@@ -60,6 +108,15 @@ document
 
         const inputField = document.querySelector(".input-btn");
         const newTodoTitle = inputField.value;
+
+        //save new task to local storage
+        let taskObj = {
+            text: newTodoTitle,
+            cls: 'todo'
+        };
+        myTasks.push(taskObj);
+        localStorage.setItem("myTasks", JSON.stringify(myTasks));
+
         createTodo(newTodoTitle);
         inputField.value = null;
 
@@ -69,8 +126,16 @@ document
 function cleanUpDoneTodos() {
     const doneItems = document.querySelectorAll('.done');
     for (let i = 0; i < doneItems.length; i++) {
+        let itemToRemove = doneItems[i].lastElementChild.textContent;
+        for (let j = 0; j < myTasks.length; j++) {
+            if (myTasks[j].text == itemToRemove.trim()) {
+                myTasks.splice(j, 1);
+            }
+        }
         doneItems[i].remove();
     }
+
+    localStorage.setItem("myTasks", JSON.stringify(myTasks));
     updateCounters();
 }
 const cleanButton = document.getElementById('clean-btn');
