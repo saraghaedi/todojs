@@ -16,14 +16,14 @@ function render(tasks) {
             listItems += `
             <li class="done task" style="background-color: ${tasks[i].color}">
             <label><input type="checkbox" checked/> ${tasks[i].text}</label>
-            <label> DD: ${tasks[i].date}</label>
+            <label> ${tasks[i].date}</label>
             </li>
         `;
         } else {
             listItems += `
             <li class="todo task" style="background-color: ${tasks[i].color}">
             <label><input type="checkbox" /> ${tasks[i].text}</label>
-            <label> DD: ${tasks[i].date}</label>
+            <label>${tasks[i].date}</label>
             </li>
         `;
         }
@@ -118,7 +118,7 @@ function setColor (element) {
 
 function setDate (element) {
     const dateVal = document.getElementById('date-picker').value;
-    const date = document.createTextNode(` DD: ${dateVal}`);
+    const date = document.createTextNode(`${dateVal}`);
     element.appendChild(date);
     
 }
@@ -155,7 +155,7 @@ document
 function cleanUpDoneTodos() {
     const doneItems = document.querySelectorAll('.done');
     for (let i = 0; i < doneItems.length; i++) {
-        let itemToRemove = doneItems[i].lastElementChild.textContent;
+        let itemToRemove = doneItems[i].childNodes[1].textContent;
         for (let j = 0; j < myTasks.length; j++) {
             if (myTasks[j].text == itemToRemove.trim()) {
                 myTasks.splice(j, 1);
